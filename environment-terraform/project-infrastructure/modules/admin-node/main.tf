@@ -65,6 +65,9 @@ resource "google_compute_instance" "vm" {
     sleep 5
     systemctl restart sshd
 
+    mkdir /enablement
+    git clone https://github.com/sttaylor-r7/k8s-enablement /enablement
+
   EOT
 }
 
