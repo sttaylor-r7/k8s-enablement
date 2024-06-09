@@ -16,7 +16,8 @@ resource "google_compute_instance" "vm" {
   name         = "${var.instance_name}-${count.index + 1}"
   machine_type = var.machine_type
   zone         = "europe-west2-a"
-
+  tags = ["k8s-enablement"]
+  
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-11"
@@ -76,3 +77,15 @@ resource "google_compute_address" "vm_static_ip" {
   name = "ipv4-address-${count.index + 1}"
 }
 
+resource "google_compute_firewall" "allow_http" {
+  name    = "allow-http-enablement"
+  network = data.google_compute_network.default.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["enablement"]
+}
