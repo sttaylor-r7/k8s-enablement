@@ -42,10 +42,10 @@ gcloud auth configure-docker europe-west2-docker.pkg.dev
 gcloud artifacts repositories create --location europe-west2 --repository-format docker nginx-demo
 
 * Tag the image with the remote registry details
-docker tag nginx:1.1 europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx:1.1
+docker tag nginx:1.1 europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx
 
 * Push the image to the repository
-docker push europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx:1.1
+docker push europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx
 
 * OPTIONAL: Run the image from someone elses registry.
 docker kill *ID*
@@ -53,15 +53,24 @@ docker rm *container_ID*
 docker rmi *image_ids*
 
 docker pull OR:
-docker run -d -p 80:80 --name nginx europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx:1.1
+docker run -d -p 80:80 --name nginx europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx
+
+
+-------
+
+* Setup kubectl 
+- gcloud container clusters get-credentials --region europe-west2 kubernetes-1
+
+* Create a kubernetes namespace
+kubectl get namespace - look at existing default namespaces
+kubectl create namespace k8s-guru
+kubectl get namespace
+
+
 
 
 
 Note: terraform destroy and remove artifact repositories manually - to cleanup
-
-
-
-
 
 
 Create the kubernetes configuration by pulling the authentication details from gcloud 
