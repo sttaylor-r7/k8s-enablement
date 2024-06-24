@@ -69,7 +69,7 @@ resource "google_compute_instance" "vm" {
     mkdir /enablement
     git clone https://github.com/sttaylor-r7/k8s-enablement /enablement
     chmod -R a+w /enablement/*
-    
+
   EOT
 }
 
@@ -84,7 +84,7 @@ resource "google_compute_firewall" "allow_http" {
 
   allow {
     protocol = "tcp"
-    ports    = ["80"]
+    ports    = ["80", "8080"]
   }
 
   source_ranges = ["0.0.0.0/0"]

@@ -9,6 +9,8 @@ docker images
 docker run -d -p80:80 --name nginx nginx:latest
 docker ps 
 
+* Check webpage
+
 * Attach to the container
 docker exec -it <container_id> /bin/sh
 
@@ -36,13 +38,14 @@ use the gcloud credential helper.
 - Gcloud is the GCP CLI and we'll use this to authenticate.
 - Similar tools are available for AWS and Azure which work in similar ways.
 
-gcloud auth configure-docker europe-west2-docker.pkg.dev
-
 * Create the remote registry using CLI
 gcloud artifacts repositories create --location europe-west2 --repository-format docker nginx-demo
 
+gcloud auth configure-docker europe-west2-docker.pkg.dev
+
+
 * Tag the image with the remote registry details
-docker tag nginx:1.1 europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx
+docker tag nginx:latest europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx
 
 * Push the image to the repository
 docker push europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx
@@ -66,43 +69,38 @@ kubectl get namespace - look at existing default namespaces
 kubectl create namespace k8s-guru
 kubectl get namespace
 
+* Create a pod with our container
+kubectl -n k8s-guru apply -f nginx-pod.yaml
+kubectl -n k8s-guru get pods -o wide
+kubectl -n k8s-guru describe pods nginx-pod
 
+* Setup a port forward to view pod
+kubectl -n k8s-guru port-forward pod/nginx-pod 8080:80 --address 0.0.0.0
+- Now connect to admin node on 8080
 
+* Retrieve the logs.
+kubectl -n k8s-guru logs nginx-pod 
+
+* Delete the pod
+kubectl -n k8s-guru delete -f nginx-pod.yaml
+
+* Create a Deployment
+kubectl -n k8s-guru apply -f nginx-deployment.yaml
+kubectl -b k8s-guru get deployment
+kubectl -b k8s-guru get pods -o wide
+
+* Create a service
+kubectl -n k8s-guru apply -f nginx-service.yaml
 
 
 Note: terraform destroy and remove artifact repositories manually - to cleanup
 
 
-Create the kubernetes configuration by pulling the authentication details from gcloud 
-gcloud container clusters list
-gcloud container clusters get-credentials kubernetes-1 --region europe-west2
-
-1. Create a container
-2. Push container to container-registry
-
-
-
-4. Deploy pod
-5. Delete pod
-8. Create Deployment
 9. Create a service
 10. Setup local scanner
 11. Setup admission controller
 12. Test admission controller
 
-
-You need to test the creation of multiple admin nodes by running a terraform apply.
-You then need to create a k8s autopilot cluster (or rather a number of them)
-
-
-terraform output -raw admin_node_password
-
-ssh to node and 
-
-docker images
-docker build -t nginx-demo .
-/var/www/localhost/htdocs group www-data
-docker run -d -p80:80 nginx:1.0 
 
 
 

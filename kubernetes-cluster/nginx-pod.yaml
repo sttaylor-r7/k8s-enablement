@@ -3,10 +3,10 @@ kind: Pod
 metadata:
   name: nginx-pod
   labels:
-    name: nginx-pod
+    app: nginx
 spec:
   containers:
-    - name: nginx-pod
+    - name: nginx
       image: europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx:latest
       ports:
         - name: web
