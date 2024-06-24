@@ -1,4 +1,28 @@
-Log into the appropriate admin node. 
+* Log into the appropriate admin node. 
+
+* Build the container image:
+cd /enablement/container-builder
+docker build -t nginx:1.0 -t nginx:latest .
+docker images
+
+* Run the container 
+docker run -d -p80:80 --name nginx nginx:latest
+docker ps 
+
+* Attach to the container
+docker exec -it <container_id> /bin/sh
+
+* Update the html
+vi /enablement/container-builder/html/index.html
+
+* Rebuild the container 
+docker build -t nginx:1.1 -t nginx:latest .
+
+
+
+
+
+
 Create the kubernetes configuration by pulling the authentication details from gcloud 
 gcloud container clusters list
 gcloud container clusters get-credentials kubernetes-1 --region europe-west2
@@ -22,4 +46,13 @@ You then need to create a k8s autopilot cluster (or rather a number of them)
 
 
 terraform output -raw admin_node_password
+
+ssh to node and 
+
+docker images
+docker build -t nginx-demo .
+/var/www/localhost/htdocs group www-data
+docker run -d -p80:80 nginx:1.0 
+
+
 

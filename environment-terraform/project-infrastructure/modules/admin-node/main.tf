@@ -68,7 +68,8 @@ resource "google_compute_instance" "vm" {
 
     mkdir /enablement
     git clone https://github.com/sttaylor-r7/k8s-enablement /enablement
-
+    chmod -R a+w /enablement/*
+    
   EOT
 }
 
