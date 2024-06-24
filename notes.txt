@@ -12,11 +12,52 @@ docker ps
 * Attach to the container
 docker exec -it <container_id> /bin/sh
 
-* Update the html
-vi /enablement/container-builder/html/index.html
+* Update the index.html  
 
 * Rebuild the container 
 docker build -t nginx:1.1 -t nginx:latest .
+docker kill <existing_id>
+docker rm nginx
+
+docker run -d -p80:80 --name nginx nginx:latest
+docker ps 
+
+* Refresh webpage a few times
+* Checks logs
+docker logs <container_ID>
+
+We now need to configure the remote container repository.
+Each CSP has a slightly different way of doing this, but ultimately, we need
+to enable authentication to the remote registry.
+
+- We will use the GCP artifact registry service
+- The easiest and most secure way to authenticate to the registry from docker is to 
+use the gcloud credential helper.
+- Gcloud is the GCP CLI and we'll use this to authenticate.
+- Similar tools are available for AWS and Azure which work in similar ways.
+
+gcloud auth configure-docker europe-west2-docker.pkg.dev
+
+* Create the remote registry using CLI
+gcloud artifacts repositories create --location europe-west2 --repository-format docker nginx-demo
+
+* Tag the image with the remote registry details
+docker tag nginx:1.1 europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx:1.1
+
+* Push the image to the repository
+docker push europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx:1.1
+
+* OPTIONAL: Run the image from someone elses registry.
+docker kill *ID*
+docker rm *container_ID*
+docker rmi *image_ids*
+
+docker pull OR:
+docker run -d -p 80:80 --name nginx europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx:1.1
+
+
+
+Note: terraform destroy and remove artifact repositories manually - to cleanup
 
 
 
