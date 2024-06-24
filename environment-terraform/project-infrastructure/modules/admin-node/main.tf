@@ -16,7 +16,7 @@ resource "google_compute_instance" "vm" {
   name         = "${var.instance_name}-${count.index + 1}"
   machine_type = var.machine_type
   zone         = "europe-west2-a"
-  tags = ["k8s-enablement"]
+  tags         = ["enablement"]
   
   boot_disk {
     initialize_params {

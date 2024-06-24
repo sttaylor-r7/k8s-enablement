@@ -1,0 +1,1 @@
+This creates the demo environment for k8s enablement training

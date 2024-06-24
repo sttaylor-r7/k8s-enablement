@@ -14,7 +14,7 @@ variable "project" {
 }
 
 variable "num-environments" {
-    description = "SA with privileges to create projects and resources"
+    description = "Number of environments to create"
     type = number
     default = 1
 }
