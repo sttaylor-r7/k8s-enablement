@@ -2,7 +2,24 @@ data "google_compute_network" "default" {
   name = "default"
 }
 
-data "google_compute_default_service_account" "default" {
+resource "google_service_account" "admin_node_sa" {
+  account_id   = "admin-node"
+  display_name = "admin-node"
+  description  = "Service account for Kubernetes operations"
+}
+
+# Assign the Editor role
+resource "google_project_iam_member" "editor_role" {
+  project = var.project
+  role    = "roles/editor"
+  member  = "serviceAccount:${google_service_account.admin_node_sa.email}"
+}
+
+# Assign the Kubernetes Engine Admin role
+resource "google_project_iam_member" "kubernetes_admin_role" {
+  project = var.project
+  role    = "roles/container.admin"
+  member  = "serviceAccount:${google_service_account.admin_node_sa.email}"
 }
 
 resource "random_password" "user_password" {
@@ -32,7 +49,7 @@ resource "google_compute_instance" "vm" {
   }
 
   service_account {
-    email  = data.google_compute_default_service_account.default.email
+    email  = google_service_account.admin_node_sa.email
     scopes = [ "https://www.googleapis.com/auth/cloud-platform" ]
   }
 

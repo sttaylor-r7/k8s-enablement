@@ -15,4 +15,5 @@ resource "google_container_cluster" "lab-clusters" {
   release_channel {
     channel = "REGULAR"
   }
+
 }

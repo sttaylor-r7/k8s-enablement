@@ -14,3 +14,8 @@ variable "machine_type" {
   type        = string
   default     = "e2-micro"
 }
+
+variable "project" {
+  description = "The google cloud project"
+  type = string
+}
