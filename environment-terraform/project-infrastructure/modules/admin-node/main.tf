@@ -23,9 +23,8 @@ resource "google_project_iam_member" "kubernetes_admin_role" {
 }
 
 resource "random_password" "user_password" {
-  length = 16
-  special = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
+  length = 8
+  special = false
 }
 
 resource "google_compute_instance" "vm" {
