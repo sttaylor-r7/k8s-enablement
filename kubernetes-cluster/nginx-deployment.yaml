@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx:latest
+        image: europe-west2-docker.pkg.dev/k8s-enablement-0e0eb5f6/nginx-demo/nginx:2.<ID>
         ports:
         - containerPort: 80

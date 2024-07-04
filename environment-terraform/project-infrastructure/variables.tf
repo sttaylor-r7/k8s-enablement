@@ -16,5 +16,5 @@ variable "project" {
 variable "num-environments" {
     description = "Number of environments to create"
     type = number
-    default = 1
+    default = 9
 }
