@@ -1,5 +1,5 @@
 data "google_compute_network" "default" {
-  name = "default"
+  name = "vpc-network"
 }
 
 resource "google_service_account" "admin_node_sa" {

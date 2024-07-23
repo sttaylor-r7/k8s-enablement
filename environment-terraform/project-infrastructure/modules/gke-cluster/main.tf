@@ -1,5 +1,5 @@
 data "google_compute_network" "default" {
-  name = "default"
+  name = "vpc-network"
 }
 
 resource "google_container_cluster" "lab-clusters" {
