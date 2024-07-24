@@ -21,4 +21,10 @@ resource "google_container_cluster" "lab-clusters" {
     master_ipv4_cidr_block = "172.16.0.0/28"
   }
 
+  master_authorized_networks_config {
+    cidr_blocks {
+      cidr_block   = "10.0.0.0/8"
+      display_name = "Internal"
+    }
+
 }
