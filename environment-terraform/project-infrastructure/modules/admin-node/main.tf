@@ -1,5 +1,5 @@
 data "google_compute_network" "default" {
-  name = "default"
+  name = "vpc-network"
 }
 
 resource "google_service_account" "admin_node_sa" {
@@ -100,7 +100,7 @@ resource "google_compute_firewall" "allow_http" {
 
   allow {
     protocol = "tcp"
-    ports    = ["80", "8080"]
+    ports    = ["80", "8080", "22"]
   }
 
   source_ranges = ["0.0.0.0/0"]

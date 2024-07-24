@@ -1,6 +1,6 @@
 terraform {
  backend "gcs" {
-   bucket                      = "terraform_dalla_backend_12012024"
+   bucket                      = "terraform-divvysales-23072024"
    prefix                      = "terraform-project-infrastructure" 
  }
 }
