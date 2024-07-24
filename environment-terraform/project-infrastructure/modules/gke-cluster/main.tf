@@ -26,5 +26,5 @@ resource "google_container_cluster" "lab-clusters" {
       cidr_block   = "10.0.0.0/8"
       display_name = "Internal"
     }
-
+  }
 }
