@@ -1,1 +1,0 @@
-Simple module to create a test project to deploy resources into and enables APIs.
