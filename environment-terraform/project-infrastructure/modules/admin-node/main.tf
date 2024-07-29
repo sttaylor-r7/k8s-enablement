@@ -2,6 +2,9 @@ data "google_compute_network" "default" {
   name = "vpc-network"
 }
 
+data "google_compute_zones" "available" {
+}
+
 resource "google_service_account" "admin_node_sa" {
   account_id   = "admin-node"
   display_name = "admin-node"
@@ -32,7 +35,7 @@ resource "google_compute_instance" "vm" {
   name         = "${var.instance_name}-${count.index + 1}"
   machine_type = var.machine_type
   tags         = ["enablement"]
-  zone         = "${var.region}a"
+  zone         = data.google_compute_zones.available.names[count.index]
 
   boot_disk {
     initialize_params {
@@ -95,7 +98,7 @@ resource "google_compute_address" "vm_static_ip" {
 }
 
 resource "google_compute_firewall" "allow_http" {
-  name    = "allow-http-enablement"
+  name    = "allow-enablement"
   network = data.google_compute_network.default.name
 
   allow {
