@@ -4,7 +4,7 @@ data "google_compute_network" "default" {
 
 resource "google_container_cluster" "lab-clusters" {
   name     = "kubernetes-1"
-  location = "europe-west1"
+  location = var.region
   network    = data.google_compute_network.default.name
  
   # Enabling Autopilot for this cluster

@@ -31,7 +31,6 @@ resource "google_compute_instance" "vm" {
   count        = var.num_instances
   name         = "${var.instance_name}-${count.index + 1}"
   machine_type = var.machine_type
-  zone         = "europe-west2-a"
   tags         = ["enablement"]
   
   boot_disk {
