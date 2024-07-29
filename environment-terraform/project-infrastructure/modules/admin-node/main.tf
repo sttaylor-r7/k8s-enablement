@@ -32,7 +32,8 @@ resource "google_compute_instance" "vm" {
   name         = "${var.instance_name}-${count.index + 1}"
   machine_type = var.machine_type
   tags         = ["enablement"]
-  
+  zone         = "${var.region}a"
+
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-11"

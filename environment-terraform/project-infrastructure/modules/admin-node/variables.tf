@@ -19,3 +19,8 @@ variable "project" {
   description = "The google cloud project"
   type = string
 }
+
+variable "region" {
+    description = "Region to deploy resources into"
+    type = string
+}
