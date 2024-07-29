@@ -35,7 +35,7 @@ resource "google_compute_instance" "vm" {
   name         = "${var.instance_name}-${count.index + 1}"
   machine_type = var.machine_type
   tags         = ["enablement"]
-  zone         = data.google_compute_zones.available.names[count.index]
+  zone         = data.google_compute_zones.available.names[0]
 
   boot_disk {
     initialize_params {
