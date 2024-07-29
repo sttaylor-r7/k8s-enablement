@@ -5,5 +5,6 @@ module "admin-node" {
 }
 
 module "gke-cluster" {
+    region = var.region
     source = "./modules/gke-cluster"
 }
