@@ -12,9 +12,11 @@ resource "google_container_cluster" "lab-clusters" {
   deletion_protection = false
   
   release_channel {
-    channel = "REGULAR"
+    channel = "RAPID"
   }
 
+  min_master_version = "1.32"
+  
   private_cluster_config {
     enable_private_nodes = "true"
     enable_private_endpoint = "true" 
