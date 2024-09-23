@@ -15,7 +15,7 @@ resource "google_container_cluster" "lab-clusters" {
     channel = "RAPID"
   }
 
-  min_master_version = "1.30.3-gke.1969000"
+  min_master_version = "1.30.3-gke.1969001"
 
   private_cluster_config {
     enable_private_nodes = "true"
